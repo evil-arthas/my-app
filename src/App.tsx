@@ -9,6 +9,7 @@ import SearchResultsPage from "./pages/SearchResultsPage";
 import SearchPage from "./pages/SearchPage"
 
 function App() {
+  console.log( 111)
   return (
     <BrowserRouter>
       <Routes>
