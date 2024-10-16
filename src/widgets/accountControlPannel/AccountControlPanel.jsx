@@ -4,11 +4,10 @@ import './accountControlPannel.scss'
 import { useEffect, useState } from "react"
 import { logOut } from "../../store/isUserAuthSlice"
 
-function AccountControlePannel() {
+function AccountControlePannel({ className, userAccountData }) {
 
   const isAuth = useAppSelector((state) => state.isUserAuthSlice.isUserAuth)
   const logOutHandler = useAppDispatch()
-  const [data, setData] = useState()
 
   if (isAuth) {
     return (
@@ -17,7 +16,8 @@ function AccountControlePannel() {
         <button
           className="account-control-pannel__log-out-btn"
           onClick={() => { logOutHandler(logOut()) }}
-        >Выйти</button>
+        >Выйти
+        </button>
 
 
       </div>

@@ -9,7 +9,7 @@ import LimitInformationPannel from "../../widgets/limitInformationPannel/LimitIn
 
 export default function () {
   console.log("Header rendered")
-
+  const [userAccountData, setUserAccountData] = useState("")
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false)
 
   // const isUserAuth = useAppSelector(state => state.isUserAuthSlice.isUserAuth)
@@ -31,7 +31,7 @@ export default function () {
           </nav>
 
           <button
-            className={`header__burger-btn ${isHeaderMenuOpen?"":"header__burger-btn_active"}`}
+            className={`header__burger-btn ${isHeaderMenuOpen ? "" : "header__burger-btn_active"}`}
             onClick={() => {
               setIsHeaderMenuOpen(!isHeaderMenuOpen)
             }}>
@@ -39,9 +39,23 @@ export default function () {
           </button>
 
           {isUserAuth && <LimitInformationPannel isHeaderMenuOpen={isHeaderMenuOpen} />}
-          < AccountContolePannel />
+          < AccountContolePannel
+            className="header__acount-controle-panel"
+            userAccountData={userAccountData}
+          />
 
         </div>
+
+        <div className="header__mobile-menu">
+          <nav className="header__nav">
+            <ul className={`nav__list`}>
+              <li><Link to={"/authorization"}>Главная</Link></li>
+              <li><Link to={"/search"}>Тарифы</Link></li>
+              <li><Link to={"/searchResults"}>FAQ</Link></li>
+            </ul>
+          </nav>
+        </div>
+
       </header>
     </div >
   )
