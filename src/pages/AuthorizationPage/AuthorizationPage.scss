@@ -1,0 +1,77 @@
+@import '../../globalStyles/variables.scss';
+
+.authorization {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  grid-auto-flow: column;
+  margin-top: 69px;
+  margin-bottom: 80px;
+
+  .authorization__header {
+    font-family: $additional-font;
+    color: $main-font-color;
+    font-size: 40px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .authorization-image-wrapper {
+    width: 48.75%;
+    justify-self: center;
+
+    .authorization__image {
+      width: 100%;
+      padding-top: 106.21%;
+      background-image: url('./image-persons-w-key.svg');
+      background-clip: border-box;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+  }
+
+  .authorization-form-wrapper {
+    grid-row: span 2;
+    width: 100%;
+    height: 100%;
+    .authorization__authorization-form{
+      margin-left: 10%;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .authorization {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    .authorization-image-wrapper {
+      width: 100%;
+      justify-self: center;
+    }
+
+    .authorization-form-wrapper {
+      display: flex;
+      width: 100%;
+      flex-flow: column;
+      align-items: center;
+      .authorization__authorization-form{
+        width: 100%;
+        max-width: none;
+        margin-left: 0;
+        margin-top: 90px;
+        .authorization-form__lock-icon{
+          left: 25%;
+        }
+      }
+    }
+
+    .authorization-image-wrapper {
+      order: 3;
+    }
+  }
+}

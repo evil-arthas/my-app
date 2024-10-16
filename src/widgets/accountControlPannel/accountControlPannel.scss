@@ -1,0 +1,39 @@
+@import '../../globalStyles/variables.scss';
+
+.account-control-pannel {
+  font-size: 14px;
+  font-family: $main-font;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  &__create-account-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.4);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__line {
+    width: 2px;
+    height: 26px;
+    background-color: $dark-aqua-green-color;
+  }
+
+  &__sign-in-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: $base-black-color;
+    font-weight: 400;
+    border-radius: 5px;
+    background-color: $light-aqua-green-color;
+    padding: 5px 12px;
+    &:hover{
+      background-color: $dark-aqua-green-color;
+    }
+  }
+}

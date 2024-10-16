@@ -1,0 +1,14 @@
+@import '../../globalStyles/variables.scss';
+
+.blue-button{
+  border-radius: 5px;
+  background-color: $blue-color;
+  border: none;
+  padding: 15px 0;
+  font-family: $main-font;
+  color: $additional-font-color;
+  font-size: 22px;
+  height: fit-content;
+  width: fit-content;
+  cursor: pointer;
+}

@@ -1,0 +1,127 @@
+@import "../../globalStyles/variables.scss";
+
+.header-container {
+  background-color: $base-white-color;
+  width: 100%;
+  position: relative;
+
+  .header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    max-width: 1320px;
+    margin: 0 auto;
+
+
+    .header__logo {
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+
+    .header__row {
+      display: flex;
+      flex-flow: row nowrap;
+      flex-grow: 1;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 1;
+
+      .header__burger-btn {
+        width: 30px;
+        height: 25px;
+        position: relative;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        background-color: blue;
+
+        span {
+          transition: transform 4s;
+          position: absolute;
+          width: 100%;
+          height: 5px;
+          background-color: $dark-aqua-green-color;
+          left: 0;
+
+          &:nth-child(1) {
+            bottom: 0;
+          }
+
+          &:nth-child(3) {
+            top: 0;
+          }
+
+          &:nth-child(2) {
+            top: 10px;
+          }
+        }
+
+        &_active {
+          span {
+            background-color: $base-white-color;
+            &:nth-child(1) {
+              transform: translateY(-10px) rotate(135deg);
+            }
+
+            &:nth-child(2) {
+              transform: rotate(45deg);
+            }
+
+            &:nth-child(3) {
+              visibility: hidden;
+              //можно скрыть через color
+            }
+          }
+        }
+      }
+
+      .header__nav {
+        .nav__list {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          display: flex;
+          gap: 3vw;
+
+          li {
+            a {
+              text-decoration: none;
+              font-size: 14px;
+              font-family: $main-font;
+              color: $base-black-color;
+              font-weight: 400;
+              cursor: pointer;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .header__limit-information-pannel {
+      max-width: 175px;
+    }
+
+  }
+
+
+}
+
+@media screen and (max-width: 800px) {
+  .header__nav {
+    width: 100%;
+    position: absolute;
+    left: 100%;
+    background-color: $dark-aqua-green-color;
+    transition: transform 0.4s ease;
+    margin: 0;
+
+    &_active {
+      transform: translateX(-100%);
+      height: 100vh;
+    }
+  }
+}

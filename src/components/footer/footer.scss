@@ -1,0 +1,28 @@
+@import "../../globalStyles/variables.scss";
+
+.footer-container{
+  background-color: $dark-aqua-green-color;
+  .footer{
+    max-width: 1320px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: 0 auto;
+    .footer__description{
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between;
+      padding: 25px 0;
+      text-align: end;
+      font-family: $main-font;
+      color: $additional-font-color;
+      font-weight: 400;
+      .footer__address{
+        font-size: 14px;
+      }
+      .footer__copyright{
+        font-size: 12px;
+      }
+    }
+  }
+}
