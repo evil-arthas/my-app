@@ -11,7 +11,6 @@ function LimitInformationPannel({ isHeaderMenuOpen }: panelProps) {
   }, [])
   return (
     <div
-      style={isHeaderMenuOpen ? { display: "none" } : {}}
       className="limit-information-pannel header__limit-information-pannel">
 
       <div className="limit-information-pannel__loader"></div>

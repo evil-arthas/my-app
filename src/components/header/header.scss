@@ -11,16 +11,60 @@
     justify-content: space-between;
     max-width: 1320px;
     margin: 0 auto;
+    height: 93px;
 
 
     .header__logo {
-      flex-grow: 1;
+      flex-grow: 2;
       flex-shrink: 1;
+      min-width: 141px;
+      .logo__image{
+        &_active{
+          opacity: 1;
+        }
+        &_inactive{
+          opacity: 0;
+        }
+        &_filled{
+          mix-blend-mode: multiply;
+          position: absolute;
+          z-index: 1;
+          transition: opacity .5s;
+        }
+        &_unfilled{
+          position: absolute;
+          z-index: 2;
+          transition: opacity .5s;
+        }
+      }
     }
 
-    .header__mobile-menu{
+    .header__mobile-menu {
       display: none;
       position: absolute;
+      width: 100%;
+      height: 100vh;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      transform: translateX(100%);
+      transition: transform 1s;
+      background-color: $dark-aqua-green-color;
+      display: flex;
+      flex-flow: column nowrap;
+      .mobile-menu__nav{
+        ul {
+          margin: 0;
+          padding: 0;
+          justify-items: center;
+          display: flex;
+          list-style: none;
+        }
+      }
+
+      &__active {
+        transform: translateX(0);
+      }
     }
 
     .header__row {
@@ -29,20 +73,24 @@
       flex-grow: 1;
       justify-content: space-between;
       align-items: center;
-      flex-shrink: 1;
+      flex-shrink: 2;
 
       .header__burger-btn {
         width: 30px;
         height: 25px;
+        background-color: none;
         position: relative;
         padding: 0;
         margin: 0;
         border: 0;
-        background-color: blue;
         display: none;
+        order: 1;
+        margin-left: auto;
+        z-index: 1;
+        background-color: unset;
 
         span {
-          transition: transform 4s;
+          transition: transform 1s;
           position: absolute;
           width: 100%;
           height: 5px;
@@ -63,6 +111,7 @@
         }
 
         &_active {
+          background-color: unset;
           span {
             background-color: $base-white-color;
 
@@ -76,7 +125,7 @@
 
             &:nth-child(3) {
               visibility: hidden;
-              //можно скрыть через color
+              //можно скрыть через transition color
             }
           }
         }
@@ -120,16 +169,21 @@
 @media screen and (max-width: 800px) {
   .header-container {
     .header {
-      .header__row{
-        .header__nav{
+      .header__row {
+        .header__account-control-pannel {
           display: none;
         }
-        .header__account-controle-panel
-        .header__burger-btn{
+
+        .header__nav {
+          display: none;
+        }
+
+        .header__burger-btn {
           display: block;
         }
       }
-      .header__mobile-menu{
+
+      .header__mobile-menu {
         display: block;
       }
     }
