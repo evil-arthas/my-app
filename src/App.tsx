@@ -10,6 +10,7 @@ import SearchPage from "./pages/SearchPage"
 
 function App() {
   console.log( 111)
+  console.log("yanos")
   return (
     <BrowserRouter>
       <Routes>

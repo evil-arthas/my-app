@@ -28,6 +28,7 @@ function formatPhoneNumber(value: string) {
     if (phoneNumberLength < 7) {
       return `+7 ${phoneNumber.slice(0, 3)} ${phoneNumber.slice(3)}`;
     }
+    
     return `+7 ${phoneNumber.slice(0, 3)} ${phoneNumber.slice(3, 6)} ${phoneNumber.slice(6, 10)}`;
   }
 }
