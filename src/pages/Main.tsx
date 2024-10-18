@@ -9,7 +9,7 @@ export default function Main() {
   const [data, setData] = useState()
   const dispatch = useAppDispatch()
   console.log("Main rerendered")
-  
+
 
 
   return (
@@ -25,10 +25,13 @@ export default function Main() {
       }
       >TOGGLE</button>
       <button
-        onClick = {()=>{dispatch(accessToken("string228"))}}
+        onClick={() => { dispatch(accessToken("string228")) }}
       >
         slcak
       </button>
+      <div>
+        sf_student1	4i2385j
+      </div>
     </main>
   )
 }

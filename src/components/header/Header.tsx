@@ -6,6 +6,7 @@ import { useAppSelector } from "../../store/hooks"
 import AccountContolePannel from "../../widgets/accountControlPannel/AccountControlPanel"
 import LimitInformationPannel from "../../widgets/limitInformationPannel/LimitInformationPannel"
 import headerLogoUnffiled from "./icon-header-logo-unfilled.png"
+import checkAccessToken from "../../checkAccessToken"
 
 
 export default function () {
@@ -14,9 +15,35 @@ export default function () {
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false)
 
   const isUserAuth = useAppSelector(state => state.isUserAuthSlice.isUserAuth)
+  const accessToken = useAppSelector(state => state.accessToken.value)
+  const accessTokenExpire = useAppSelector(state => state.accessTokenExpire.value)
+  checkAccessToken(accessTokenExpire)
+  const date = new Date()
+  console.log(date)
+  async function authUser(accessToken:string) {
+    try {
+      let response = await fetch(`https://gateway.scan-interfax.ru/api/v1/account/info`, {
+        method: 'GET',
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(
+          "as"
+        )
+      })
+      if (response.ok) {
+        const data = await response.json()
+        const accessTokenValue = data.accessToken
+        const accessTokenExpireValue = data.expire
 
-  async function fetchUserData(params:any) {
-    
+      }
+      if (response.status === 401) {
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

@@ -7,6 +7,7 @@ function AuthorizationPage() {
     <div className="container">
       <main>
         <div className="authorization">
+          
           <h1 className="authorization__header">
             Для оформления подписки на тариф, необходимо авторизоваться.
           </h1>

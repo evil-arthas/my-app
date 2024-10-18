@@ -75,7 +75,11 @@ function AuthorizationForm() {
         dispatch(accessTokenExpire(accessTokenExpireValue))
         dispatch(logIn())
         setIsAuthUnsuccess(false)
-        navigate('/', { replace: true });
+        navigate('/', { replace: true })
+        localStorage.setItem(
+          "access-token",
+          JSON.stringify(data)
+        )
       }
       if (response.status === 401) {
         setIsAuthUnsuccess(true)
@@ -163,7 +167,7 @@ function AuthorizationForm() {
           event.preventDefault()
           console.log(`login ${!!login}`)
           console.log(`password ${!!password}`)
-          // authUser(login, password)
+          authUser(login, password)
         }}
       >Войти
       </BlueButton>
