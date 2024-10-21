@@ -47,30 +47,34 @@
 
           &:nth-child(2) {
             width: 140px;
+
             @media screen and (max-width: 800px) {
-              display:none;
+              display: none;
             }
           }
         }
       }
     }
-    .form-w-image-wrapper{
+
+    .form-w-image-wrapper {
       display: flex;
       flex-flow: row nowrap;
       gap: 10px;
-      .search-page__search-form{
+
+      .search-page__search-form {
         // min-width: 360px;
-        // max-width: 872px;
-        width: 872px;
+        // max-width: 872px; 
         min-height: 543px;
         max-height: 688px;
         flex-grow: 1;
       }
-      .image-wrapper{
+
+      .image-wrapper {
         width: 30%;
         flex-grow: 1;
         flex-shrink: 2;
-        .img{
+
+        .img {
           width: 100%;
           padding-top: 106.21%;
           background-clip: border-box;
@@ -81,6 +85,61 @@
         }
       }
     }
+  }
+}
 
+@media screen and (max-width:800px) {
+  .container {
+    .search-page {
+      .form-w-image-wrapper {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 50px;
+        .image-wrapper {
+          width: 100%;
+          flex-grow: 1;
+          flex-shrink: 2;
+        }
+
+        .search-page__search-form {
+          // min-width: 360px;
+          // max-width: 872px;
+          min-height: 543px;
+          max-height: 800px;
+          flex-grow: 1;
+          flex-flow: column nowrap;
+
+          .search-form-wrapper-1{
+            align-items: center;
+            gap: 40px;
+            label{
+              align-items: center;
+              width: 100%;
+              select{
+                width: 100%;
+              }
+              input{
+                width: 100%;
+              }
+              &:last-child{
+                span{
+                  text-align: center;
+                }
+                justify-content: center;
+              }
+            }
+          }
+          .search-form-wrapper-2 {
+            .search-form-check-box-wrapper {
+              display: none;
+            }
+          }
+          .search-form__blue-button{
+            width: 100%;
+            margin-top: 30px;
+          }
+        }
+      }
+    }
   }
 }
