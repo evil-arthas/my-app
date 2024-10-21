@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import './searchForm.scss'
 import BlueButton from '../../shared/BlueButton/BlueButton'
+import { formatINN, isINNValide } from '../../someAPIs'
 
 export default function SearchForm() {
-  const [INN, setINN] = useState("")
+  const [INN, setINN] = useState<undefined | string>("")
   const [tonality, setTonality] = useState("Любая")
   const [docsNum, setDocsNum] = useState("")
   const [fromDate, setFromDate] = useState("")
   const [toDate, setToDate] = useState("")
+  const [isINNValid, setIsINNValid] = useState(true)
 
   return (
     <form className="search-form search-page__search-form">
@@ -17,7 +19,13 @@ export default function SearchForm() {
           <input type="text"
             placeholder='10 цифр'
             value={INN}
-            onChange={(event) => setINN(event.target.value)}
+            onChange={(event) => {
+              const INN = event.target.value
+              const formattedINN = formatINN(INN)
+              setINN(formattedINN)
+              const clearINN = INN.replace(/[^\d]/g, '')
+              
+            }}
           />
         </label>
         <label className='search-form__tonality-label'>
