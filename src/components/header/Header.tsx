@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./header.scss"
 import headerLogo from "./icon-header-logo.png"
 import { Link } from "react-router-dom"
@@ -6,21 +6,30 @@ import { useAppSelector } from "../../store/hooks"
 import AccountContolePannel from "../../widgets/accountControlPannel/AccountControlPanel"
 import LimitInformationPannel from "../../widgets/limitInformationPannel/LimitInformationPannel"
 import headerLogoUnffiled from "./icon-header-logo-unfilled.png"
-import checkAccessToken from "../../checkAccessToken"
+import {checkAccessToken} from "../../someAPIs"
+import imageLyoxaA from './image-Lexa_A.png'
 
 
 export default function () {
-  console.log("Header rendered")
-  const [userAccountData, setUserAccountData] = useState("")
+  const [userAccountData, setUserAccountData] = useState({img:"",name:""})
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false)
 
   const isUserAuth = useAppSelector(state => state.isUserAuthSlice.isUserAuth)
   const accessToken = useAppSelector(state => state.accessToken.value)
   const accessTokenExpire = useAppSelector(state => state.accessTokenExpire.value)
-  checkAccessToken(accessTokenExpire)
-  const date = new Date()
-  console.log(date)
-  async function authUser(accessToken:string) {
+
+  useEffect(()=>{
+    if(isUserAuth){
+      //думал будет запрос на сервер
+      const response = {
+        img: imageLyoxaA,
+        name: "Алексей А."
+      }
+      setUserAccountData(response)
+    }
+  },[isUserAuth])
+
+  async function authUser() {
     try {
       let response = await fetch(`https://gateway.scan-interfax.ru/api/v1/account/info`, {
         method: 'GET',
@@ -29,16 +38,14 @@ export default function () {
           "Accept": "application/json"
         },
         body: JSON.stringify(
-          "as"
+          {accessToken}
         )
       })
       if (response.ok) {
-        const data = await response.json()
-        const accessTokenValue = data.accessToken
-        const accessTokenExpireValue = data.expire
 
       }
       if (response.status === 401) {
+
       }
 
     } catch (error) {
@@ -50,8 +57,8 @@ export default function () {
     <div className="container header-container">
       <header className="header">
         <div className="header__logo">
-          <img src={headerLogo} alt="logo" className={`logo__image_filled ${!isHeaderMenuOpen?"logo__image_active":"logo__image_inactive"}`}/>
-          <img src={headerLogoUnffiled} alt="logo" className={`logo__image_unfilled ${isHeaderMenuOpen?"logo__image_active":"logo__image_inactive"}`}/>
+          <img src={headerLogo} alt="logo" className={`logo__image_filled ${!isHeaderMenuOpen ? "logo__image_active" : "logo__image_inactive"}`} />
+          <img src={headerLogoUnffiled} alt="logo" className={`logo__image_unfilled ${isHeaderMenuOpen ? "logo__image_active" : "logo__image_inactive"}`} />
         </div>
         <div className="header__row">
 
@@ -76,6 +83,7 @@ export default function () {
           < AccountContolePannel
             className="header__acount-controle-panel"
             userAccountData={userAccountData}
+            setIsheaderMenuOpen={setIsHeaderMenuOpen}
           />
 
         </div>
@@ -83,14 +91,15 @@ export default function () {
         <div className={`header__mobile-menu ${isHeaderMenuOpen ? "header__mobile-menu__active" : ""}`}>
           <nav className="mobile-menu__nav">
             <ul className={`nav__list`}>
-              <li><Link to={"/authorization"}>Главная</Link></li>
-              <li><Link to={"/search"}>Тарифы</Link></li>
-              <li><Link to={"/searchResults"}>FAQ</Link></li>
+              <li><Link to={"/authorization"} onClick={()=>setIsHeaderMenuOpen(false)}>Главная</Link></li>
+              <li><Link to={"/search"} onClick={()=>setIsHeaderMenuOpen(false)}>Тарифы</Link></li>
+              <li><Link to={"/searchResults"}onClick={()=>setIsHeaderMenuOpen(false)}>FAQ</Link></li>
             </ul>
           </nav>
           < AccountContolePannel
             className="mobile-menu__account-controle-panel"
             userAccountData={userAccountData}
+            setIsheaderMenuOpen={setIsHeaderMenuOpen}
           />
         </div>
 

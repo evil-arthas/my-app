@@ -9,6 +9,7 @@
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-evenly;
+  position: relative;
 
   &__element{
     font-size: 10px;

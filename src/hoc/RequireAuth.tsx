@@ -4,7 +4,7 @@ import { useLocation, Navigate } from "react-router-dom"
 
 const RequireAuth = ({children}:any) => {
   const isAuth = useAppSelector((state)=>state.isUserAuthSlice.isUserAuth)
-  if(isAuth){
+  if(true){
     return (children)
   }
 

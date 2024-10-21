@@ -4,11 +4,11 @@ import { useAppSelector } from "../store/hooks"
 import { logIn, logOut } from "../store/isUserAuthSlice"
 import { baseURL } from "../URLS"
 import { accessToken } from "../features/AuthorizationForm/accessTokenSlice"
+import Loader from "../shared/loader/Loader"
 
 export default function Main() {
   const [data, setData] = useState()
   const dispatch = useAppDispatch()
-  console.log("Main rerendered")
 
 
 
@@ -24,6 +24,8 @@ export default function Main() {
         () => { dispatch(logOut()) }
       }
       >TOGGLE</button>
+
+
       <button
         onClick={() => { dispatch(accessToken("string228")) }}
       >

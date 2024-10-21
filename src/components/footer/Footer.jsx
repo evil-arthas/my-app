@@ -2,7 +2,6 @@ import './footer.scss'
 import footerIcon from './icon-footer-logo.png'
 
 export default function Footer() {
-  console.log("footer rendered")
   return (
     <div className="container footer-container">
       <footer className="footer">

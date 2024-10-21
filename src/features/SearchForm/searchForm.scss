@@ -1,0 +1,104 @@
+@import '../../globalStyles/variables.scss';
+
+
+.search-form {
+  box-shadow: 0px 0px 8px 4px #c7c7c7;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 21px 39px 32px 44px;
+  justify-content: space-between;
+
+  .search-form-wrapper-2 {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 15px;
+    flex-grow: 1;
+    span{
+      align-self: flex-end;
+      opacity: .4;
+      &::first-letter{
+        color: red;
+      }
+    }
+    .search-form__blue-button {
+      width: 90%;
+      align-self: flex-end;
+      margin-top: auto;
+    }
+
+    .search-form-check-box-wrapper {
+      display: flex;
+      flex-flow: column nowrap;
+      margin-top: 15px;
+
+      label {
+        display: flex;
+        flex-flow: row nowrap;
+        font-size: 18px;
+
+        input {
+          order: -1;
+          margin-right: 17px;
+        }
+      }
+
+    }
+  }
+
+  .search-form-wrapper-1 {
+    &>* {
+      font-family: $main-font;
+    }
+
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 30px;
+    flex-shrink: 1;
+
+    label {
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 20px;
+      font-size: 18px;
+      position: relative;
+      &:last-child{
+        span{
+          width: 100%;
+        }
+        input{
+          width: 176px;
+        }
+        flex-flow: row wrap;
+      }
+
+      input {
+        width: 242px;
+        height: 43px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0px 0px 1px 1px #c7c7c7;
+        padding: 0.375rem 0.75rem;
+        font-family: inherit;
+        font-size: 1rem;
+
+        &::placeholder {
+          color: #212529;
+          opacity: 0.4;
+          text-align: center;
+        }
+      }
+
+      select {
+        width: 242px;
+        height: 43px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0px 0px 1px 1px #c7c7c7;
+        padding: 0.375rem 0.75rem;
+        font-family: inherit;
+        font-size: 1rem;
+      }
+    }
+
+  }
+}

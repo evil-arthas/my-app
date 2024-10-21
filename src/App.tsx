@@ -6,11 +6,10 @@ import './globalStyles/container.scss'
 import AuthorizationPage from "./pages/AuthorizationPage/AuthorizationPage";
 import RequireAuth from "./hoc/RequireAuth";
 import SearchResultsPage from "./pages/SearchResultsPage";
-import SearchPage from "./pages/SearchPage"
+import SearchPage from "./pages/SearchPage/SearchPage"
+import MainPage from "./pages/MainPage/MainPage";
 
 function App() {
-  console.log( 111)
-  console.log("yanos")
   return (
     <BrowserRouter>
       <Routes>
@@ -20,7 +19,7 @@ function App() {
         >
           <Route 
             path="/" 
-            element={<Main />} />
+            element={<MainPage />} />
           
           <Route 
             path="/authorization" 
