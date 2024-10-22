@@ -73,7 +73,7 @@ export function checkIsINNValide(INN: string) {
   const checkSumDevidedBy11andRoundedDownAndMultiplicatedBy11 = checkSumDevidedBy11andRoundedDown * 11
   let result = checkSum - checkSumDevidedBy11andRoundedDownAndMultiplicatedBy11
 
-  if(result===10){
+  if (result === 10) {
     result = 0
   }
 
@@ -83,4 +83,70 @@ export function checkIsINNValide(INN: string) {
   const validINNExample = [7830002293, "Санкт-Петербургская бумажная фабрика Гознака"]
 
   return isValid
+}
+
+export function buildBodyRequestForHistograms(fromDate: string, toDate: string,
+  INN: string, isMaxFullnes: boolean, isInBusinessNews: boolean,
+  isOnlyMainRole: boolean, isOnlyWithRiskFactors: boolean, tonality: string, limit: string) {
+  return {
+    "issueDateInterval": {
+      "startDate": new Date(fromDate).toISOString(),
+      "endDate": new Date(toDate).toISOString()
+      // "startDate": "2023-01-01T00:00:00+03:00",
+      // "endDate": "2024-08-31T23:59:59+03:00"
+    },
+    "searchContext": {
+      "targetSearchEntitiesContext": {
+        "targetSearchEntities": [
+          {
+            "type": "company",
+            "sparkId": null,
+            "entityId": null,
+            "inn": Number(INN.replace(/[^\d]/g, "")),
+            "maxFullness": isMaxFullnes, //признак максимальной полноты
+            "inBusinessNews": isInBusinessNews //упоминания в бизнес контексте
+          }
+        ],
+        "onlyMainRole": isOnlyMainRole, //Только главная роль
+        "tonality": tonality, //тональность
+        "onlyWithRiskFactors": isOnlyWithRiskFactors,//публикации только с риск факторами
+        "riskFactors": {
+          "and": [],
+          "or": [],
+          "not": []
+        },
+        "themes": {
+          "and": [],
+          "or": [],
+          "not": []
+        }
+      },
+      "themesFilter": {
+        "and": [],
+        "or": [],
+        "not": []
+      }
+    },
+    "searchArea": {
+      "includedSources": [],
+      "excludedSources": [],
+      "includedSourceGroups": [],
+      "excludedSourceGroups": []
+    },
+    "attributeFilters": {
+      "excludeTechNews": true,
+      "excludeAnnouncements": true,
+      "excludeDigests": true
+    },
+    "similarMode": "duplicates",
+    "limit": Number(limit), //limit from 1 to 1000
+    "sortType": "sourceInfluence",
+    "sortDirectionType": "desc",
+    "intervalType": "month",
+    "histogramTypes": [
+      "totalDocuments",
+      "riskFactors"
+    ]
+  }
+
 }

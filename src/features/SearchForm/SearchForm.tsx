@@ -1,26 +1,60 @@
-import { useState } from 'react'
+import { useState, MouseEvent } from 'react'
 import './searchForm.scss'
 import BlueButton from '../../shared/BlueButton/BlueButton'
-import { formatINN, checkIsINNValide } from '../../someAPIs'
+import { formatINN, checkIsINNValide, buildBodyRequestForHistograms } from '../../someAPIs'
+import { setRequestBody } from './requestBodySlice';
+import { useAppDispatch } from '../../store/hooks';
+import { replace, useNavigate } from 'react-router-dom';
 
 export default function SearchForm() {
   const [INN, setINN] = useState<string>("")
-  const [tonality, setTonality] = useState("Любая")
+  const [tonality, setTonality] = useState("any")
   const [docsNum, setDocsNum] = useState("")
   const [fromDate, setFromDate] = useState("")
   const [toDate, setToDate] = useState("")
   const [isINNValid, setIsINNValid] = useState(true)
   const [isdocsNumValid, setIsDocsNumValid] = useState(true)
   const [isDataValid, setIsDataValid] = useState(true)
-
-  const nowDate = new Date()
+  const [isMaxFullnes, setIsMaxFullnes] = useState(true)
+  const [isInBusinessNews, setIsInBusinessNews] = useState(false)
+  const [isOnlyMainRole, setIsOnlyMainRole] = useState(false)
+  const [isOnlyWithRiskFactors, setIsOnlyWithRiskFactors] = useState(false)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const pureINN = INN.replace(/[^\d]/g, '')
-
   const isButtonDisabled = !((pureINN.length >= 10) && (isDataValid) && (docsNum.length > 0)
     && (fromDate !== "") && (toDate !== "") && (isINNValid) && (isdocsNumValid))
-  console.log(isButtonDisabled)
+  
 
-
+    const AT2210 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI3OGM1MTZiNy1jYzgyLWVkMTEtODI3NS04NzJjODBhZjI3NTMiLCJuYmYiOjE3Mjk1ODU2NjYsImV4cCI6MTcyOTY3MjA2NiwiaXNzIjoiU2NhbkdhdGV3YXkiLCJhdWQiOiJzZl9zdHVkZW50MyJ9.Ep3y97Zc5PJBf9nZ0t9cbMtmCUXJt-osLcmrmxyATGg"
+    async function fetchSearchResult(requestBody:string) {
+      try {
+        let response = await fetch(`https://gateway.scan-interfax.ru/api/v1/objectsearch`, {
+          method: 'POST',
+          headers: {
+            "Authorization": `Bearer ${AT2210}`,
+            "Content-type": "application/json",
+            "Accept": "application/json"
+          },
+          body: requestBody
+        })
+        if (response.ok) {
+          const data = await response.json()
+          console.log(data)
+        }
+        if (response.status === 401) {
+          alert("Ошибка")
+        }
+        if (response.status === 500) {
+          alert(`${response} "сервер не возвращает данные"`)
+        }
+        console.log(response)
+  
+  
+      } catch (error) {
+        console.log(error)
+      }
+    }
   return (
     <form className="search-form search-page__search-form">
       <div className='search-form-wrapper-1'>
@@ -63,9 +97,9 @@ export default function SearchForm() {
             onChange={(e) => setTonality(e.target.value)}
             value={tonality}
           >
-            <option value="Позитивная">Позитивная</option>
-            <option value="Негативная">Негативная</option>
-            <option value="Любая">Любая</option>
+            <option value="positive">Позитивная</option>
+            <option value="negative">Негативная</option>
+            <option value="any">Любая</option>
           </select>
         </label>
         <label className='search-form__docs-num-label'>
@@ -161,19 +195,25 @@ export default function SearchForm() {
         <div className="search-form-check-box-wrapper">
           <label className="search-from__check-box-label">
             Признак максимальной полноты
-            <input type="checkbox" />
+            <input type="checkbox"
+              checked={isMaxFullnes} onChange={() => setIsMaxFullnes(!isMaxFullnes)}
+            />
           </label>
           <label className="search-from__check-box-label">
             Упоминания в бизнес-контексте
-            <input type="checkbox" />
+            <input type="checkbox"
+              checked={isInBusinessNews} onChange={() => setIsInBusinessNews(!isInBusinessNews)} />
           </label>
           <label className="search-from__check-box-label">
             Главная роль в публикации
-            <input type="checkbox" />
+            <input type="checkbox"
+              checked={isOnlyMainRole} onChange={() => setIsOnlyMainRole(!isOnlyMainRole)} />
           </label>
-          <label className="search-from__check-box-label">
+          <label className="search-from__check-box-label"
+          >
             Публикации только с риск факторами
-            <input type="checkbox" />
+            <input type="checkbox"
+              checked={isOnlyWithRiskFactors} onChange={() => setIsOnlyWithRiskFactors(!isOnlyWithRiskFactors)} />
           </label>
           <label className="search-from__check-box-label">
             Включать технические новости рынков
@@ -189,7 +229,16 @@ export default function SearchForm() {
           </label>
         </div>
         <BlueButton
-          onClick={()=>{console.log(1)}}
+          onClick={(event: MouseEvent<HTMLButtonElement>) => {
+            event.preventDefault()
+            const requestBody = JSON.stringify(buildBodyRequestForHistograms(fromDate, toDate, INN, 
+                      isMaxFullnes, isInBusinessNews, isOnlyMainRole, isOnlyWithRiskFactors, 
+                      tonality, docsNum))
+            console.log(requestBody)
+            dispatch(setRequestBody(requestBody))
+            fetchSearchResult(requestBody)
+            navigate('/searchResults', {replace:true})
+          }}
           className={`${isButtonDisabled ? "search-from__blue-button_disabled" : ""} search-form__blue-button blue-button`}
           disabled={isButtonDisabled}>
           Поиск</BlueButton>

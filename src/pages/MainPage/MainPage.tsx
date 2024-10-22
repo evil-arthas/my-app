@@ -2,7 +2,7 @@ import './mainPage.scss'
 import imageSearcher from './image-searcher.svg'
 import BlueButton from '../../shared/BlueButton/BlueButton'
 import { useNavigate } from 'react-router-dom'
-import { Navigation, Pagination, A11y } from 'swiper/modules';
+import { Navigation, A11y } from 'swiper/modules';
 import iconMagnifire from './icon-magnifire.png';
 import iconShield from './icon-shiled.png';
 import iconTimer from './icon-timer.png';
