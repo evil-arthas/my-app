@@ -14,7 +14,7 @@ function SearchResultsPage() {
   const [counter, setCounter] = useState(false)
   const requstBody = useAppSelector(state => state.requestBodySlice.value)
   const rqb = `{"issueDateInterval":{"startDate":"2023-08-30T00:00:00.000Z","endDate":"2024-09-30T00:00:00.000Z"},"searchContext":{"targetSearchEntitiesContext":{"targetSearchEntities":[{"type":"company","sparkId":null,"entityId":null,"inn":7710137066,"maxFullness":true,"inBusinessNews":false}],"onlyMainRole":false,"tonality":"any","onlyWithRiskFactors":false,"riskFactors":{"and":[],"or":[],"not":[]},"themes":{"and":[],"or":[],"not":[]}},"themesFilter":{"and":[],"or":[],"not":[]}},"searchArea":{"includedSources":[],"excludedSources":[],"includedSourceGroups":[],"excludedSourceGroups":[]},"attributeFilters":{"excludeTechNews":true,"excludeAnnouncements":true,"excludeDigests":true},"similarMode":"duplicates","limit":100,"sortType":"sourceInfluence","sortDirectionType":"desc","intervalType":"month","histogramTypes":["totalDocuments","riskFactors"]}`
-  const AT2210 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI3OGM1MTZiNy1jYzgyLWVkMTEtODI3NS04NzJjODBhZjI3NTMiLCJuYmYiOjE3Mjk1ODU2NjYsImV4cCI6MTcyOTY3MjA2NiwiaXNzIjoiU2NhbkdhdGV3YXkiLCJhdWQiOiJzZl9zdHVkZW50MyJ9.Ep3y97Zc5PJBf9nZ0t9cbMtmCUXJt-osLcmrmxyATGg"
+  const AT2210 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIwYzI5NDI0NC1jYzgyLWVkMTEtODI3NS04NzJjODBhZjI3NTMiLCJuYmYiOjE3Mjk2NzY4OTMsImV4cCI6MTcyOTc2MzI5MywiaXNzIjoiU2NhbkdhdGV3YXkiLCJhdWQiOiJzZl9zdHVkZW50MSJ9.gU_a-xNRtKpzNEtY2RoSIpnnYfBIdBJxVedYkRfgg94"
   async function fetchSearchResult(type: "objectsearch" | "histograms") {
     try {
       let response = await fetch(`https://gateway.scan-interfax.ru/api/v1/${type === 'objectsearch' ? "objectsearch" : "objectsearch/histograms"}`, {
@@ -98,7 +98,7 @@ function SearchResultsPage() {
               <div className='slider-header__row-1'>Всего</div>
               <div className='slider-header__row-1'>Риски</div>
             </div>
-            <div className="search-result-page__slides-wrapper">
+            <div className='search-result-page__slider-slides'>
               <HistogramsSlider histogramsData={histogramsData}></HistogramsSlider>
             </div>
           </div>

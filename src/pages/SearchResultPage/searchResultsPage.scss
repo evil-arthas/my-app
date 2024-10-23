@@ -12,10 +12,12 @@
         font-size: 30px;
         text-transform: uppercase;
       }
-      .histograms__search-num{
+
+      .histograms__search-num {
         opacity: .4;
         font-family: $main-font;
       }
+
       .search-result-page__slider-wrapper {
         display: flex;
         flex-flow: row nowrap;
@@ -28,11 +30,14 @@
           display: flex;
           flex-flow: column nowrap;
           gap: 26px;
-          div{
+
+          div {
             color: #FFF;
           }
         }
-        .search-result-page__slides-wrapper{
+
+        .search-result-page__slider-slides {
+          max-width: 1208px;
           position: relative;
         }
       }
